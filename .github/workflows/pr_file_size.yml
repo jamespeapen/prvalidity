@@ -7,14 +7,6 @@ on:
 
 jobs:
 
-  one:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
   check_file_size:
     runs-on: ubuntu-latest
 
@@ -32,8 +24,6 @@ jobs:
           SIZE_LIMIT=$((10*1024*1024))
 
           # Get the list of changed files in the pull request
-          echo "Testing output"
-          echo "${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}"
           CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           echo "$CHANGED_FILES"
           # Iterate through each changed file
