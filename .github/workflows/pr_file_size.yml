@@ -21,7 +21,7 @@ jobs:
           SIZE_LIMIT=$((10*1024*1024))
 
           # Get the list of changed files in the pull request
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
 
           # Iterate through each changed file
           for FILE in $CHANGED_FILES; do
