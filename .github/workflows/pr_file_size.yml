@@ -36,15 +36,15 @@ jobs:
           echo "${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}"
           CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           echo "$CHANGED_FILES"
-          # Iterate through each changed file
-          #for FILE in $CHANGED_FILES; do
-          #  # Check if the file size exceeds the limit
-          #  FILE_SIZE=$(wc -c < "$FILE")
-          #  if [ "$FILE_SIZE" -gt "$SIZE_LIMIT" ]; then
-          #    echo "Error: File $FILE exceeds the size limit of 10MB."
-          #    exit 1
-          #  else
-          #    echo "Pass $FILE"
-          #  fi
-          #done
+           Iterate through each changed file
+          for FILE in $CHANGED_FILES; do
+            # Check if the file size exceeds the limit
+            FILE_SIZE=$(wc -c < "$FILE")
+            if [ "$FILE_SIZE" -gt "$SIZE_LIMIT" ]; then
+              echo "Error: File $FILE exceeds the size limit of 10MB."
+              exit 1
+            else
+              echo "Pass $FILE"
+            fi
+          done
         shell: bash
