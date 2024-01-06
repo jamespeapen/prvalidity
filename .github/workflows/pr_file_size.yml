@@ -22,7 +22,7 @@ jobs:
 
           # Get the list of changed files in the pull request
           CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
-
+          echo "$CHANGED_FILES"
           # Iterate through each changed file
           for FILE in $CHANGED_FILES; do
             # Check if the file size exceeds the limit
