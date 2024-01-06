@@ -33,7 +33,6 @@ jobs:
 
           # Get the list of changed files in the pull request
           echo "Testing output"
-          git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
           echo "${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}"
           CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           echo "$CHANGED_FILES"
