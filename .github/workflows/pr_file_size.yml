@@ -30,6 +30,8 @@ jobs:
             if [ "$FILE_SIZE" -gt "$SIZE_LIMIT" ]; then
               echo "Error: File $FILE exceeds the size limit of 10MB."
               exit 1
+            else
+              echo "Pass $FILE"
             fi
           done
         shell: bash
