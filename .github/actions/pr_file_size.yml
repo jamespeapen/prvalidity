@@ -1,0 +1,35 @@
+name: Check File Size
+
+on:
+  pull_request:
+    paths:
+      - '**/*'
+
+jobs:
+  check_file_size:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check file size
+        run: |
+          set -e
+
+          # Define the size limit in bytes (10MB)
+          SIZE_LIMIT=$((10*1024*1024))
+
+          # Get the list of changed files in the pull request
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+
+          # Iterate through each changed file
+          for FILE in $CHANGED_FILES; do
+            # Check if the file size exceeds the limit
+            FILE_SIZE=$(wc -c < "$FILE")
+            if [ "$FILE_SIZE" -gt "$SIZE_LIMIT" ]; then
+              echo "Error: File $FILE exceeds the size limit of 10MB."
+              exit 1
+            fi
+          done
+        shell: bash
